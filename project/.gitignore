@@ -2,6 +2,7 @@
 *.zip
 *.csv
 
+project/AutogluonModels/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
