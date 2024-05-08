@@ -1,16 +1,15 @@
 # Report: Predict Bike Sharing Demand with AutoGluon Solution
-#### NAME HERE
-Alan Vergel 
+
+#### Alan Vergel 
+
 
 ## Initial Training
 ### What did you realize when you tried to submit your predictions? What changes were needed to the output of the predictor to submit your results?
-TODO: Add your explanation
 
 - We need to set all predictions with negative values to zero.
 
 
 ### What was the top ranked model that performed?
-TODO: Add your explanation
 
 was the LGBM regressor 
 
@@ -40,40 +39,68 @@ In addition to these categorical features, we also created **cyclical features**
 
 To capture this cyclical nature, we transformed these variables into a pair of coordinates in polar coordinates, lying on a unit circle that repeats each year (for month) and each month (for day_of_month). Each variable was transformed into two new variables using the sine and cosine functions:
 
-$$var_x = sin(var * (2 * \\frac{pi}{ \\text{ max value }} ) )$$
+$$var_x = sin(var * (2 * \frac{ \pi }{ \text{ max value }} ) )$$
 
-$$ var_y = cos(var * (2 * \\frac{pi}{ \\text{max value}})) $$
+$$ var_y = cos(var * (2 * \frac{ \pi }{ \text{max value}})) $$
 
 These cyclical features help the model understand the cyclical patterns in the bike sharing demand related to the time of the year and the day of the month.
 
 ### How much better did your model preform after adding additional features and why do you think that is?
-TODO: Add your explanation
+
+The model perform better with this new features.
+Get a improved root mean squared error of -40, while the previous was -140
+
+I think the model now have more  information given in  some features, what allow it to predict better the number of counts.
+
 
 ## Hyper parameter tuning
 ### How much better did your model preform after trying different hyper parameters?
-TODO: Add your explanation
+
+Sometimes was better, bu in general is more difficult to beat previous results searching hyper parameters.
+
+The model achieved better performance with the new features with the 
+`best_quality` presets.
+
+
 
 ### If you were given more time with this dataset, where do you think you would spend more time?
-TODO: Add your explanation
+
+Tunning hyperparameters and creating new features.
+First I would create the new features (and detect the ones that are not significant) and then I'll search for the best hyper parameters.
+
 
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
-|model|hpo1|hpo2|hpo3|score|
+|model|num_trials|scheduler|searcher|score|
 |--|--|--|--|--|
-|initial|?|?|?|?|
-|add_features|?|?|?|?|
-|hpo|?|?|?|?|
+|initial|6|auto|local|1.37|
+|add_features|3|auto|local|1.32|
+|hpo|4|auto|local|0.51|
+
+
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
-TODO: Replace the image below with your own.
 
 ![model_train_score.png](img/model_train_score.png)
 
 ### Create a line plot showing the top kaggle score for the three (or more) prediction submissions during the project.
 
-TODO: Replace the image below with your own.
 
 ![model_test_score.png](img/model_test_score.png)
 
 ## Summary
-TODO: Add your explanation
+
+
+This report presents the process and results of predicting bike sharing demand using AutoGluon. The project  involved initial model training, exploratory data analysis, feature creation, and hyperparameter tuning.
+
+In the initial training, it was realized that all predictions with negative values needed to be set to zero before submission. The top-ranked model that performed well was the LGBM regressor.
+
+The exploratory data analysis revealed several patterns and correlations in the bike sharing demand dataset. It was observed that the demand for bikes varies with different times of the day, weather conditions, and seasons. To capture these patterns more effectively, several new features were engineered including ‘Hour’, ‘Rush Hour Categories’, ‘Temperature Categories’, ‘Wind Speed Categories’, ‘Humidity Categories’, and ‘Cyclical Features for Month and Day of Month’. These new features provided more nuanced and detailed information about the conditions under which the bike rentals occur, thereby helping to improve the performance of the predictive model.
+
+After adding the additional features, the model performed significantly better, achieving an improved root mean squared error of -40, compared to the previous error of -140. This improvement suggests that the model now has more information given in some features, allowing it to predict the number of counts more accurately.
+
+In conclusion, this project demonstrated the effectiveness of using AutoGluon for predicting bike sharing demand. The exploratory data analysis and feature creation phases were particularly beneficial in improving model performance. Future work would involve further hyperparameter tuning and feature engineering to continue improving the model’s predictive accuracy.
+
+
+
+
